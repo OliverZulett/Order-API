@@ -1,8 +1,9 @@
 version: "3.7"
 
 services:
+
   postgres:
-    container_name: product-api-postgres
+    container_name: ORDER_API_POSTGRES
     image: postgres:latest
     hostname: postgres
     ports:
@@ -10,9 +11,9 @@ services:
     environment:
       POSTGRES_USER: super_admin
       POSTGRES_PASSWORD: super_password
-      POSTGRES_DB: PRODUCTS_DB
+      POSTGRES_DB: ORDERS_DB
     volumes:
-      - PRODUCT_API_POSTGRES_VOLUME:/var/lib/postgresql/data
+      - SPRING_DB_API_VOLUME:/var/lib/postgresql/data
       - ./docker/postgres/shared/:/shared/
     restart: unless-stopped
     networks:
@@ -21,11 +22,9 @@ services:
 
   springbootapp:
     build: .
-    container_name: product-api-spring
+    container_name: ORDER_API_SPRING
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/PRODUCTS_DB
-      SPRING_DATASOURCE_USERNAME: super_admin
-      SPRING_DATASOURCE_PASSWORD: super_password
+      SPRING_PROFILES_ACTIVE: prod
     ports:
       - 8082:8080
     depends_on:
@@ -37,12 +36,12 @@ services:
       - interdb
 
   pgadmin:
-    container_name: product-api-pgadmin
+    container_name: ORDER_API_PGADMIN
     image: dpage/pgadmin4
     ports:
       - "5555:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: superadmin@productsapi.org
+      PGADMIN_DEFAULT_EMAIL: superadmin@springapi.org
       PGADMIN_DEFAULT_PASSWORD: superpassword
       PGADMIN_SERVER_JSON_FILE: /pgadmin4/conf/server.json
     volumes:
@@ -50,18 +49,18 @@ services:
     restart: unless-stopped
 
 volumes:
-  PRODUCT_API_POSTGRES_VOLUME:
+  SPRING_DB_API_VOLUME:
 
 networks:
   interapi:
-    name: productapi_interapi
+    name: ordersapi_interapi
     driver: bridge
   apidb:
-    name: productapi_apidb
+    name: ordersapi_apidb
     driver: bridge
   default:
-    name: productapi_default
+    name: ordersapi_default
     driver: bridge
   interdb:
-    name: productapi_interdb
+    name: ordersapi_interdb
     driver: bridge
