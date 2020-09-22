@@ -17,6 +17,6 @@ public class LineItemEntity {
     private UUID id;
 
     @Column(name="qty")
-    private String qty;
+    private Integer qty;
 
 }

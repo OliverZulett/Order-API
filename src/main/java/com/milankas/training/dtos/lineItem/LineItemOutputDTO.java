@@ -11,6 +11,6 @@ public class LineItemOutputDTO {
 
     private UUID id;
 
-    private String qty;
+    private Integer qty;
 
 }

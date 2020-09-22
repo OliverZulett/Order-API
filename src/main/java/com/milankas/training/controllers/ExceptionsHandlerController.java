@@ -28,12 +28,6 @@ public class ExceptionsHandlerController {
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
-//	@ExceptionHandler(InvalidParamException.class)
-//	public ResponseEntity<?> invalidParamExceptionHandler(InvalidParamException ex) {
-//		ErrorDetails errorDetails = new ErrorDetails(new Date(), "Invalid item", ex.getMessage());
-//		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-//	}
-
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<?> HttpMessageNotReadableExceptionHandler(HttpMessageNotReadableException ex) {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), "Invalid item", ex.getMessage());

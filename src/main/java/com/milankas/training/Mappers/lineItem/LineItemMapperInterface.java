@@ -1,6 +1,7 @@
 package com.milankas.training.Mappers.lineItem;
 
 import com.milankas.training.dtos.lineItem.LineItemOutputDTO;
+import com.milankas.training.dtos.lineItem.PatchLineItemInputDTO;
 import com.milankas.training.dtos.lineItem.PostLineItemInputDTO;
 import com.milankas.training.persistance.entities.LineItemEntity;
 import org.mapstruct.Mapper;
@@ -11,8 +12,12 @@ public interface LineItemMapperInterface {
 
     LineItemMapperInterface MAPPER = Mappers.getMapper( LineItemMapperInterface.class );
 
-    LineItemOutputDTO EntityToDto(LineItemEntity addressEntity);
+    LineItemOutputDTO EntityToDto(LineItemEntity lineItemEntity);
 
-    LineItemEntity PostDtoToEntity(PostLineItemInputDTO addressDTO);
+    PatchLineItemInputDTO EntityToPatchDto(LineItemEntity lineItemEntity);
+
+    LineItemEntity PostDtoToEntity(PostLineItemInputDTO lineItemDTO);
+
+    LineItemEntity PatchDtoToEntity(PatchLineItemInputDTO lineItemDTO);
 
 }

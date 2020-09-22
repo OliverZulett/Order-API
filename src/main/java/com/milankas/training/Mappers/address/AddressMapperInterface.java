@@ -1,5 +1,6 @@
 package com.milankas.training.Mappers.address;
 
+import com.milankas.training.dtos.address.PatchAddressInputDTO;
 import com.milankas.training.dtos.address.PostAddressInputDTO;
 import com.milankas.training.dtos.address.AddressOutputDTO;
 import com.milankas.training.persistance.entities.AddressEntity;
@@ -13,6 +14,10 @@ public interface AddressMapperInterface {
 
     AddressOutputDTO EntityToDto(AddressEntity addressEntity);
 
+    PatchAddressInputDTO EntityToPatchDto(AddressEntity addressEntity);
+
     AddressEntity PostDtoToEntity(PostAddressInputDTO addressDTO);
+
+    AddressEntity PatchDtoToEntity(PatchAddressInputDTO addressDTO);
 
 }

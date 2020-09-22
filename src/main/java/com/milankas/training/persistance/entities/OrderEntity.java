@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Getter
@@ -22,15 +21,15 @@ public class OrderEntity {
     @Column(name="user_id")
     private UUID userId;
 
-    @OneToMany(cascade=ALL, targetEntity = LineItemEntity.class)
-    @JoinColumn(name = "line_item", referencedColumnName = "id")
-    private List<LineItemEntity> lineItemEntities;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "line_item")
+    private List<LineItemEntity> lineItems = new ArrayList<>();
 
     @Column(name = "email_address")
     private String emailAddress;
 
-    @OneToOne(cascade = CascadeType.ALL,  targetEntity = AddressEntity.class)
-    @JoinColumn(name = "shop_address", referencedColumnName = "id")
-    private AddressEntity shopAddressEntity;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shop_address")
+    private AddressEntity shopAddress;
 
 }
