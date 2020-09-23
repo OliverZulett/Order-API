@@ -98,7 +98,9 @@ public interface OrderMapperInterface {
 
     @Named("addressEntityToPatchDTO")
     public static PatchAddressInputDTO addressEntityToPatchDTO(OrderEntity order) {
-        return addressMapper.EntityToPatchDto(order.getShopAddress());
+        PatchAddressInputDTO orderForUpdate = addressMapper.EntityToPatchDto(order.getShopAddress());
+        System.out.println(orderForUpdate.getId());
+        return orderForUpdate;
     }
 
     @Named("lineItemEntityToPatchDTO")
