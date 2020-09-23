@@ -13,7 +13,6 @@ import java.util.UUID;
 public class LineItemEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name="qty")
