@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +36,16 @@ public class OrderController {
 
     @PostMapping("/orders")
     public ResponseEntity<OrderOutputDTO> createOrder(@Valid @RequestBody PostOrderInputDTO orderToSave) {
-        return new ResponseEntity<>(orderService.saveOrder(orderToSave), HttpStatus.CREATED);
+//        try {
+            return new ResponseEntity<>(orderService.saveOrder(orderToSave), HttpStatus.CREATED);
+//        } catch (SQLException e) {
+//            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
+//            if (rootCause instanceof SQLException) {
+//                if ("23505".equals(((SQLException) rootCause).getSQLState())) {
+//                    // do smth interesting :)
+//                }
+//            }
+//        }
     }
 
     @PatchMapping("/orders/{id}")

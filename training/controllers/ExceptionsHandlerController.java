@@ -1,20 +1,17 @@
 package com.milankas.training.controllers;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.milankas.training.exceptions.ErrorDetails;
 import com.milankas.training.exceptions.ResourceNotFoundException;
-import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.exception.SQLGrammarException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class ExceptionsHandlerController {
@@ -31,9 +28,15 @@ public class ExceptionsHandlerController {
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
+//	@ExceptionHandler(InvalidParamException.class)
+//	public ResponseEntity<?> invalidParamExceptionHandler(InvalidParamException ex) {
+//		ErrorDetails errorDetails = new ErrorDetails(new Date(), "Invalid product", ex.getMessage());
+//		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+//	}
+
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<?> HttpMessageNotReadableExceptionHandler(HttpMessageNotReadableException ex) {
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), "Invalid item", ex.getMessage());
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), "Invalid product", ex.getMessage());
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
@@ -53,12 +56,6 @@ public class ExceptionsHandlerController {
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<?> IllegalArgumentExceptionHandler(IllegalArgumentException ex) {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), "Invalid parameter", ex.getMessage());
-		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-	}
-
-	@ExceptionHandler(ConstraintViolationException.class)
-	public  ResponseEntity<?> SQLExceptionHandler(ConstraintViolationException ex) {
-		ErrorDetails errorDetails = new ErrorDetails(new Date(), "SQL Error", ex.getCause().getMessage());
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
