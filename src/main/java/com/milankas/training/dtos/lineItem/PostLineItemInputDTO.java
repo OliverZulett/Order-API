@@ -12,7 +12,7 @@ public class PostLineItemInputDTO {
 
     private UUID id;
 
-    @Min(value = 1, message = "Its necessary at least 1 line item")
+    @Min(value = 1, message = "Minimum quantity 1")
     private Integer qty;
 
 }

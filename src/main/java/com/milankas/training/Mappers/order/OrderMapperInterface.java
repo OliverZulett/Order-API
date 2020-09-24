@@ -8,7 +8,6 @@ import com.milankas.training.dtos.address.AddressOutputDTO;
 import com.milankas.training.dtos.address.PatchAddressInputDTO;
 import com.milankas.training.dtos.lineItem.LineItemOutputDTO;
 import com.milankas.training.dtos.lineItem.PatchLineItemInputDTO;
-import com.milankas.training.dtos.lineItem.PostLineItemInputDTO;
 import com.milankas.training.dtos.order.PatchOrderInputDTO;
 import com.milankas.training.dtos.order.PostOrderInputDTO;
 import com.milankas.training.dtos.order.OrderOutputDTO;
@@ -34,10 +33,6 @@ public interface OrderMapperInterface {
     })
     OrderOutputDTO EntityToDto(OrderEntity orderEntity);
 
-    @Mappings({
-            @Mapping(target = "shopAddress", source = "orderDTO", qualifiedByName = "addressDTOToEntity"),
-            @Mapping(target = "lineItems", source = "orderDTO", qualifiedByName = "lineItemsDTOToEntity")
-    })
     OrderEntity PostDtoToEntity(PostOrderInputDTO orderDTO);
 
     @BeforeMapping
@@ -53,20 +48,6 @@ public interface OrderMapperInterface {
             @Mapping(target = "lineItems", source = "orderDTO", qualifiedByName = "lineItemsPatchDTOToEntity")
     })
     OrderEntity PatchDtoToEntity(@MappingTarget OrderEntity orderEntity, PatchOrderInputDTO orderDTO);
-
-    @Named("addressDTOToEntity")
-    public static AddressEntity addressDTOToEntity(PostOrderInputDTO order) {
-        return addressMapper.PostDtoToEntity(order.getShopAddress());
-    }
-
-    @Named("lineItemsDTOToEntity")
-    public static List<LineItemEntity> lineItemsDTOToEntity(PostOrderInputDTO order) {
-        List<LineItemEntity> lineItemEntities = new ArrayList<>();
-        order.getLineItems().forEach((PostLineItemInputDTO lineItem) -> {
-            lineItemEntities.add(lineItemMapper.PostDtoToEntity(lineItem));
-        });
-        return lineItemEntities;
-    }
 
     @Named("addressPatchDTOToEntity")
     public static AddressEntity addressPatchDTOToEntity(PatchOrderInputDTO order) {

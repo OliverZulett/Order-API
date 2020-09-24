@@ -44,6 +44,7 @@ public class PostAddressInputDTO {
     private String zipCode;
 
     @NotNull(message = "Country code is required")
+    @Pattern(regexp = "[A-Z].*[A-Z]", message = "Invalid country code format")
     @CountryCodeConstraint
     private String countryCode;
 
